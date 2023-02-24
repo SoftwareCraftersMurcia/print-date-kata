@@ -1,4 +1,4 @@
-class Calendar {
+export class Calendar {
   today(): Date {
     return new Date();
   }
