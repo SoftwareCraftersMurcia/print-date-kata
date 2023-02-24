@@ -18,4 +18,13 @@ describe("Test suite", () => {
     printDate.printCurrentDate();
     expect(printer.printLine).toHaveBeenCalled();
   })
+
+  it("should call calendar today", () => {
+    const calendar = new Calendar();
+    const printer = new Printer();
+    jest.spyOn(calendar, 'today');
+    const printDate = new PrintDate(calendar, printer);
+    printDate.printCurrentDate();
+    expect(calendar.today).toHaveBeenCalled();
+  })
 });

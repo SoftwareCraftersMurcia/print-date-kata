@@ -10,3 +10,5 @@ tests_build
 coverage
 
 .DS_Store
+
+.idea
