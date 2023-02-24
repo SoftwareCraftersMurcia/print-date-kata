@@ -24,4 +24,19 @@ class PrintDateTest extends TestCase
 
         $printDate->printCurrentDate();
     }
+
+    /** @test */
+    public function it_prints_date_with_home_made_doubles()
+    {
+        $date = 'perro';
+
+        $calendarStub = new CalendarStub();
+
+        $printerSpy = $this->prophesize(Printer::class);
+        $printerSpy->printLine($date)->shouldBeCalled();
+
+        $printDate = new PrintDate($printerSpy->reveal(), $calendarStub);
+
+        $printDate->printCurrentDate();
+    }
 }
