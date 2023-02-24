@@ -40,4 +40,24 @@ describe("Print date behaviour", () => {
     printDate.printCurrentDate();
     expect(spyPrinter).toHaveBeenCalledWith(mockedDate.toString());
   });
+
+  it("check that Calendar today is called. No library", () => {
+    const calendar = new FakeCalendar();
+    const printer = new Printer();
+    const printDate = new PrintDate(calendar, printer);
+    printDate.printCurrentDate();
+    const timesCalled = calendar.getTimesCalled();
+    expect(timesCalled).toBe(1);
+  });
 });
+
+class FakeCalendar extends Calendar {
+  timesCalled: number = 0;
+  getTimesCalled(): number {
+    return this.timesCalled;
+  }
+  today(): Date {
+    this.timesCalled++;
+    return new Date("2020-01-01");
+  }
+}
