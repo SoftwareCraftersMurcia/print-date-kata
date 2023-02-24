@@ -13,16 +13,14 @@ class PrintDateTest extends TestCase
     public function it_prints_date_with_library_doubles()
     {
         $date = 'perro';
-
         $calendarStub = $this->prophesize(Calendar::class);
         $calendarStub->now()->willReturn($date);
-
         $printerSpy = $this->prophesize(Printer::class);
-        $printerSpy->printLine($date)->shouldBeCalled();
-
         $printDate = new PrintDate($printerSpy->reveal(), $calendarStub->reveal());
 
         $printDate->printCurrentDate();
+
+        $printerSpy->printLine($date)->shouldHaveBeenCalled();
     }
 
     /** @test */
