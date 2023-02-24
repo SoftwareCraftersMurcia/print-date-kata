@@ -19,4 +19,13 @@ describe("Print date behaviour", () => {
     printDate.printCurrentDate();
     expect(spy).toHaveBeenCalled();
   });
+
+  it("check that Printer printLine is called", () => {
+    const spy = jest.spyOn(Printer.prototype, "printLine");
+    const calendar = new Calendar();
+    const printer = new Printer();
+    const printDate = new PrintDate(calendar, printer);
+    printDate.printCurrentDate();
+    expect(spy).toHaveBeenCalled();
+  });
 });
