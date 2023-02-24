@@ -10,7 +10,7 @@ use PrintDate\Printer;
 class PrintDateTest extends TestCase
 {
     /** @test */
-    public function it_test_system_methods()
+    public function it_prints_date_with_library_doubles()
     {
         $date = 'perro';
 
