@@ -28,4 +28,16 @@ describe("Print date behaviour", () => {
     printDate.printCurrentDate();
     expect(spy).toHaveBeenCalled();
   });
+
+  it("check that Printer printLine is called with the right argument", () => {
+    const mockedDate = new Date("2020-01-01");
+    const spyPrinter = jest.spyOn(Printer.prototype, "printLine");
+    const spyCalendar = jest.spyOn(Calendar.prototype, "today");
+    spyCalendar.mockReturnValue(mockedDate);
+    const calendar = new Calendar();
+    const printer = new Printer();
+    const printDate = new PrintDate(calendar, printer);
+    printDate.printCurrentDate();
+    expect(spyPrinter).toHaveBeenCalledWith(mockedDate.toString());
+  });
 });
