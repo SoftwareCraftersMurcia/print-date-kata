@@ -70,11 +70,10 @@ describe("Print date behaviour", () => {
   });
 });
 
-class FakeCalendar extends Calendar {
+class FakeCalendar implements Calendar {
   timesCalled: number = 0;
   mockedDate: Date;
   constructor(mockedDate: Date = new Date("2020-01-01")) {
-    super();
     this.mockedDate = mockedDate;
   }
 
@@ -88,7 +87,7 @@ class FakeCalendar extends Calendar {
   }
 }
 
-class FakePrinter extends Printer {
+class FakePrinter implements Printer {
   timesCalled: number = 0;
   lastLine: string = "";
   getTimesCalled(): number {
