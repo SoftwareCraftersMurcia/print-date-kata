@@ -12,10 +12,16 @@ class PrintDateTest extends TestCase
     /** @test */
     public function it_test_system_methods()
     {
-        $printDate = new PrintDate(new Printer(), new Calendar());
+        $date = 'perro';
+
+        $calendarStub = $this->prophesize(Calendar::class);
+        $calendarStub->now()->willReturn($date);
+
+        $printerSpy = $this->prophesize(Printer::class);
+        $printerSpy->printLine($date)->shouldBeCalled();
+
+        $printDate = new PrintDate($printerSpy->reveal(), $calendarStub->reveal());
 
         $printDate->printCurrentDate();
-
-        // I don't know how to test it
     }
 }
