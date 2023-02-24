@@ -9,4 +9,13 @@ describe("Test suite", () => {
     const printDate = new PrintDate(calendar, printer);
     printDate.printCurrentDate();
   });
+
+  it("should call printLine", () => {
+    const calendar = new Calendar();
+    const printer = new Printer();
+    jest.spyOn(printer, 'printLine');
+    const printDate = new PrintDate(calendar, printer);
+    printDate.printCurrentDate();
+    expect(printer.printLine).toHaveBeenCalled();
+  })
 });
