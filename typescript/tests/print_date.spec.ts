@@ -58,25 +58,47 @@ describe("Print date behaviour", () => {
     const timesCalled = printer.getTimesCalled();
     expect(timesCalled).toBe(1);
   });
+
+  it("check value passed to printLine. No library", () => {
+    const mockedDate = new Date("2020-01-01");
+    const calendar = new FakeCalendar(mockedDate);
+    const printer = new FakePrinter();
+    const printDate = new PrintDate(calendar, printer);
+    printDate.printCurrentDate();
+    const lastLine = printer.getLastLine();
+    expect(lastLine).toBe(mockedDate.toString());
+  });
 });
 
 class FakeCalendar extends Calendar {
   timesCalled: number = 0;
+  mockedDate: Date;
+  constructor(mockedDate: Date = new Date("2020-01-01")) {
+    super();
+    this.mockedDate = mockedDate;
+  }
+
   getTimesCalled(): number {
     return this.timesCalled;
   }
+
   today(): Date {
     this.timesCalled++;
-    return new Date("2020-01-01");
+    return this.mockedDate;
   }
 }
 
 class FakePrinter extends Printer {
   timesCalled: number = 0;
+  lastLine: string = "";
   getTimesCalled(): number {
     return this.timesCalled;
   }
+  getLastLine(): string {
+    return this.lastLine;
+  }
   printLine(line: string): void {
     this.timesCalled++;
+    this.lastLine = line;
   }
 }
